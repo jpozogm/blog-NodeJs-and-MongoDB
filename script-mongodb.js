@@ -17,6 +17,7 @@ function toResponse(doc) { //transforma el _id de mongo en el id del objeto que 
     if (doc instanceof Array) {
         return doc.map(elem => toResponse(elem));
     } else {
+        console.log(`DOC****** ${doc}`);
         let { _id, ...ret } = doc;
         ret.id = doc._id.toString();
         return ret;
@@ -26,6 +27,7 @@ function toResponse(doc) { //transforma el _id de mongo en el id del objeto que 
 //post
 app.post('/items', async (req, res)=>{ //async
     const it = req.body
+
     
     if (typeof it.description != "string" || typeof it.checked != 'boolean') {
         res.sendStatus(400);
@@ -35,8 +37,9 @@ app.post('/items', async (req, res)=>{ //async
             description: it.description,
             checked: it.checked
         };
+
         //save resource
-        await items.insertOne(newIt.id, newIt); // await + insertOne
+        await items.insertOne(newIt); // await + insertOne
 
         //Return new resource
         res.json(toResponse(newIt)); //incluyes el toResponse para cambio IT
