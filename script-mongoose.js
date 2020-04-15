@@ -25,7 +25,7 @@ function toResponse(doc) {
 
 
 //post
-app.post('/items', async (req, res)=>{ //async
+app.post('/items', async (req, res)=>{ 
     const it = req.body
 
     
@@ -39,51 +39,50 @@ app.post('/items', async (req, res)=>{ //async
         });
 
         //save resource
-        await newIt.save(); // await + save
+        await newIt.save(); 
 
         //Return new resource
-        res.json(toResponse(newIt)); //incluyes el toResponse para cambio IT
+        res.json(toResponse(newIt)); 
     }
 })
 
 //GET
-app.get('/items', async (req, res)=>{ //async
-    const allItems = await items.find().exec(); // await + find().exec()
+app.get('/items', async (req, res)=>{ 
+    const allItems = await items.find().exec(); 
     res.json(toResponse(allItems));
 });
 
 
-app.get('/items/:id', async (req, res)=>{ //async
+app.get('/items/:id', async (req, res)=>{ 
     const id= req.params.id;
-    const it= await items.findById(id); // await + findById(id)
+    const it= await items.findById(id); 
 
     if(!it) {
         res.sendStatus(404);
     } else {
-        res.json(toResponse(it)); //toResponse
+        res.json(toResponse(it)); 
     }
 });
 
 //delete
 
-//borrar item
-app.delete('/items/:id', async (req, res)=> { //async
+app.delete('/items/:id', async (req, res)=> { 
     const id = req.params.id;
-    const it = await items.findById(id); // await + findById(id)
+    const it = await items.findById(id); 
 
     if(!it) {
         res.sendStatus(404);
     } else {
-        const ItemDelete = await items.findByIdAndDelete(id); // findByIdAndDelete 
-        res.json(toResponse(ItemDelete)); //toResponse
+        const ItemDelete = await items.findByIdAndDelete(id); 
+        res.json(toResponse(ItemDelete)); 
     }
 });
 
 
 //Put
-app.put('/items/:id', async (req, res)=>{ //async
+app.put('/items/:id', async (req, res)=>{ 
     const id = req.params.id;
-    const it= await items.findById(id); //findById
+    const it= await items.findById(id); 
 
     if(!it){
         res.sendStatus(404);
@@ -96,11 +95,11 @@ app.put('/items/:id', async (req, res)=>{ //async
             res.sendStatus(404);
         } else {
             //update fields in model
-                it.description = itReq.description; //cambia respecto a mongodb
+                it.description = itReq.description; 
                 it.checked = itReq.checked;
             
             //upgrate resource
-            let itemSave = await it.save() // await + save
+            let itemSave = await it.save() 
 
             //return update resource
             res.json(toResponse(itemSave));
