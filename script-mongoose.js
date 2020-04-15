@@ -1,6 +1,5 @@
 var express = require('express');
-const MongoClient = require('mongodb').MongoClient;
-const ObjectId = require('mongodb').ObjectId;
+var mongoose = require('mongoose');
 
 //mongodb
 const url = "mongodb://admin:admin@localhost:27018/itemsDB?authSource=admin";
@@ -12,16 +11,18 @@ let items;
 
 //Methods
 
-function toResponse(doc) { //transforma el _id de mongo en el id del objeto que usa node.
+function toResponse(doc) {
 
-    if (doc instanceof Array) {
+    if(doc instanceof Array){
         return doc.map(elem => toResponse(elem));
     } else {
-        let { _id, ...ret } = doc;
-        ret.id = doc._id.toString();
+        let ret = doc.toObject({ versionKey: false });
+        ret.id = ret._id.toString();
+        delete ret._id;
         return ret;
-    }
+    }    
 }
+
 
 //post
 app.post('/items', async (req, res)=>{ //async
@@ -32,13 +33,13 @@ app.post('/items', async (req, res)=>{ //async
         res.sendStatus(400);
     } else {
         //create object
-        const newIt = {
+        const newIt = new items ({
             description: it.description,
             checked: it.checked
-        };
+        });
 
         //save resource
-        await items.insertOne(newIt); // await + insertOne
+        await newIt.save(); // await + save
 
         //Return new resource
         res.json(toResponse(newIt)); //incluyes el toResponse para cambio IT
@@ -47,14 +48,14 @@ app.post('/items', async (req, res)=>{ //async
 
 //GET
 app.get('/items', async (req, res)=>{ //async
-    const allItems = await items.find().toArray(); // await + find().toArray()
+    const allItems = await items.find().exec(); // await + find().exec()
     res.json(toResponse(allItems));
 });
 
 
 app.get('/items/:id', async (req, res)=>{ //async
     const id= req.params.id;
-    const it= await items.findOne({_id: new ObjectId(id)}); // await + findOne
+    const it= await items.findById(id); // await + findById(id)
 
     if(!it) {
         res.sendStatus(404);
@@ -68,13 +69,13 @@ app.get('/items/:id', async (req, res)=>{ //async
 //borrar item
 app.delete('/items/:id', async (req, res)=> { //async
     const id = req.params.id;
-    const it = await items.findOne({_id: new ObjectId(id)}); // await + findOne
+    const it = await items.findById(id); // await + findById(id)
 
     if(!it) {
         res.sendStatus(404);
     } else {
-        items.deleteOne({_id: new ObjectId(id)}); // deleteOne + 
-        res.json(toResponse(it)); //toResponse
+        const ItemDelete = await items.findByIdAndDelete(id); // findByIdAndDelete 
+        res.json(toResponse(ItemDelete)); //toResponse
     }
 });
 
@@ -82,53 +83,51 @@ app.delete('/items/:id', async (req, res)=> { //async
 //Put
 app.put('/items/:id', async (req, res)=>{ //async
     const id = req.params.id;
-    const it= await items.findOne({_id: new ObjectId(id)}); //find One
+    const it= await items.findById(id); //findById
 
     if(!it){
         res.sendStatus(404);
     } else {
         const itReq = req.body;
 
+
         //validation
         if (typeof itReq.description != "string" || typeof itReq.checked != "boolean" ) {
             res.sendStatus(404);
         } else {
-            //crerate object with needed fields and assign it
-
-            const newIt = { //sin id
-                description: itReq.description,
-                checked: itReq.checked
-            };
+            //update fields in model
+                it.description = itReq.description; //cambia respecto a mongodb
+                it.checked = itReq.checked;
             
             //upgrate resource
-            await items.updateOne({_id: new ObjectId(id)}), {$set: newIt}; // await + update one
+            let itemSave = await it.save() // await + save
 
-            //return new resource
-            newIt.id = id; // igualas id
-            res.json(newIt);
+            //return update resource
+            res.json(toResponse(itemSave));
         }
     }
-})
-
-
+});
 
 
 async function dbConnect() {
-
-    let conn = await MongoClient.connect(url, {
+    await mongoose.connect(url, {
         useUnifiedTopology: true,
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useFindAndModify: false
     });
 
     console.log("Connected to Mongo");
 
-    items = conn.db().collection('items'); //items es el nombre del documento
+    var adSchema = new mongoose.Schema({
+        description: String,
+        checked: Boolean
+    });
+
+    items = mongoose.model('items', adSchema);
 }
 
 async function main() {
-
     await dbConnect();
-
     app.listen(3000, () => console.log('Server started in port 3000'));
 }
 
