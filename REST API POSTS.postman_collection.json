@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "a70f8558-0e1c-410b-8a14-8ab9432e5e75",
-		"name": "TEST ITEMS",
+		"_postman_id": "df2bc2f9-d14e-4ffa-bd7c-fb4027a3daf4",
+		"name": "REST API POSTS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "New Item POST",
+			"name": "New Post POST",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -18,22 +18,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"description\": \"leche\",\n\t\"checked\": false\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\n\t\"postAuthorName\": \"Rajoy\",\n\t\"postAuthorNickName\": \"emc2\",\n\t\"postTittle\": \"refactorizar Hello world\",\n\t\"postContent\": \"un plato es un plato\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/items/",
+					"raw": "http://localhost:3000/posts/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"items",
+						"posts",
 						""
 					]
 				}
@@ -41,73 +36,64 @@
 			"response": []
 		},
 		{
-			"name": "Query Items GET",
+			"name": "Query Posts GET",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/items/",
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query Post GET by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/posts/5e982a4214b04394c3fcabb1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"items",
-						""
+						"posts",
+						"5e982a4214b04394c3fcabb1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Query Item GET by ID",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/items/7f22bac8-a24c-4bbf-8a49-98a5a12d243f",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"items",
-						"7f22bac8-a24c-4bbf-8a49-98a5a12d243f"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Item DELETE",
+			"name": "Delete Post DELETE",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/items/2c7847cf-6326-4970-9db2-72d57124df24",
+					"raw": "http://localhost:3000/posts/5e982a4214b04394c3fcabb1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"items",
-						"2c7847cf-6326-4970-9db2-72d57124df24"
+						"posts",
+						"5e982a4214b04394c3fcabb1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Query item PUT",
+			"name": "Query Post PUT",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"description\": \"leche2\",\n\t\"checked\": false\n}",
+					"raw": "{\n\t\"postAuthorName\": \"Carl Sagan\",\n\t\"postAuthorNickName\": \"sagan\",\n\t\"postTittle\": \"Cosmos\",\n\t\"postContent\": \"Para hacer una tarta de manzana primero tienes que crear un universo.\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -115,15 +101,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/items/d135490b-5bb1-4780-8e61-45869d726b4d",
+					"raw": "http://localhost:3000/posts/5e982c1e14b04394c3fcabb2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"items",
-						"d135490b-5bb1-4780-8e61-45869d726b4d"
+						"posts",
+						"5e982c1e14b04394c3fcabb2"
 					]
 				}
 			},
