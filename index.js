@@ -3,7 +3,9 @@ const app = require('./app.js');
 
 
 //mongodb
-const url = "mongodb://admin:admin@localhost:27018/postsDB?authSource=admin";
+const config = require('./config');
+const url = config.db;
+
 
 let posts;
 
@@ -15,40 +17,10 @@ async function dbConnect() {
     });
 
     console.log("Connected to Mongo");
-
-    var adSchema = new mongoose.Schema({
-
-        postAuthorName: {
-            type: String,
-            require: true,
-        },
-        
-        postAuthorNickName: {
-            type: String,
-            require: true,
-        },
-
-        postTittle: {
-            type: String,
-            require: true
-        },
-
-        postContent: {
-            type: String,
-            require: true
-        },
-
-        postComments: [{
-            type: mongoose.Schema.Types.ObjectId, ref: "Post",
-            require: false
-        }],
-    });
-
-    posts = mongoose.model('posts', adSchema);
 }
 
 async function main() {
     await dbConnect();
-    app.listen(3000, () => console.log('Server started in port 3000'));
+    app.listen(config.port, () => console.log(`Server started in port ${config.port}`));
 }
 main();
