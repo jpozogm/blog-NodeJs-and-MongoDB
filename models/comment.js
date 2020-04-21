@@ -21,11 +21,10 @@ const CommentSchema = Schema({
     },
 
     commentsPostId: [{
-        type: mongoose.Schema.Types.ObjectId, ref: "Comment"
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "post"
     }],
 });
 
-module.exports = mongoose.model("Comment", CommentSchema);
+module.exports = mongoose.model("comment", CommentSchema);
 
-
-//bad words: {type: String, enum: ["caca", "culo", "pedo", "pis"]},
