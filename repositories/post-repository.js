@@ -3,15 +3,8 @@ const PostSchema = require ('../models/post');
 
 module.exports = class PostRepository {
 
-    async savePost(req, res) {
+    async savePost(post) {
         try {
-            const post = req.body
-
-            if (typeof post.postAuthorName != "string" || typeof post.postAuthorNickName != 'string'
-            || typeof post.postTittle != "string" || typeof post.postContent != "string" ) {
-                res.sendStatus(400);
-            } else {
-                //create object
                 const newPost = new PostSchema ({
                     postAuthorName: post.postAuthorName,
                     postAuthorNickName: post.postAuthorNickName,
@@ -24,46 +17,30 @@ module.exports = class PostRepository {
         
                 //Return new resource
                 return newPost; 
-            }
+
         } catch (err) {
             console.log(err.message)
             return err.message
         }
     };
 
-    async getPosts(req, res) {
+    async getPosts() {
         const allPosts = await PostSchema.find({}).populate('comment').select({__v:0}) //.select({__v:0}); select indicas qué campos no quieres que te devuelve la BBDD, si pones nombre no te devuelve el nombre
-        res.json(allPosts); 
+        return allPosts; 
     }
 
-    async getPost(req, res) {
-        const id= req.params.id;
-        const po= await PostSchema.findById(id).populate('comment'); 
-    
-        if(!po) {
-            res.sendStatus(404);
-        } else {
-            res.json(po); 
+    async getPost(id) {
+        try {
+        return await PostSchema.findById(id).populate('comment'); 
+        } catch (err){
+            console.log(err);
+            return err.message;
         }
     };
 
-    async updatePost(req, res) {
-        const id = req.params.id;
-    const po= await PostSchema.findById(id); 
-
-    if(!po){
-        res.sendStatus(404);
-    } else {
-        const poReq = req.body;
-
-
-        //validation
-        if (typeof poReq.postAuthorName != "string" || typeof poReq.postAuthorNickName != "string" 
-        || typeof poReq.postTittle != "string" || typeof poReq.postContent != "string") {
-            res.sendStatus(404);
-
-        } else {
-            //update fields in model
+    async updatePost(id, poReq) {
+        try {
+        const po= await PostSchema.findById(id); 
 
                 po.postAuthorName = poReq.postAuthorName;
                 po.postAuthorNickName = poReq.postAuthorNickName;
@@ -74,20 +51,21 @@ module.exports = class PostRepository {
             let postSave = await po.save() 
 
             //return update resource
-            res.json(postSave);
+            return postSave;
+        } catch (err){
+            console.log(err);
+            return err.message;
         }
-    }
     };
     
-    async deletePost(req, res) {
-        const id = req.params.id;
-        const po = await PostSchema.findById(id); 
-
-        if(!po) {
-            res.sendStatus(404);
-        } else {
+    async deletePost(id) {
+        try {
+            const po = await PostSchema.findById(id); 
             const PostDelete = await PostSchema.findByIdAndDelete(id); 
-            res.json(PostDelete); 
+            return PostDelete; 
+        } catch (err){
+            console.log(err);
+            return err.message;
         }
     }
 

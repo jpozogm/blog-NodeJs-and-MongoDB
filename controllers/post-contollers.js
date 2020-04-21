@@ -6,27 +6,34 @@ const MyPostService = new PostService();
 module.exports = class PostController {
 
     async savePost(req, res) {
-        const newPost = await MyPostService.savePost(req, res);
+        const post = req.body
+        const newPost = await MyPostService.savePost(post);
         res.json(newPost); 
     };
 
     async getPosts(req, res) {
-        const allPosts = await MyPostService.getPosts(req, res);
+        const allPosts = await MyPostService.getPosts();
         res.json(allPosts);
     };
 
     async getPost(req, res) {
-        const getPostById = await MyPostService.getPost(req, res);
+        const id= req.params.id;
+        const getPostById = await MyPostService.getPost(id);
         res.json(getPostById);
     };
 
     async updatePost(req, res) {
-        const updatePost = await MyPostService.updatePost(req, res);
+
+        const id = req.params.id;
+        const poReq = req.body;
+
+        const updatePost = await MyPostService.updatePost(id, poReq);
         res.json(updatePost);
     }
 
     async deletePost(req, res) {
-        const postDelete = await MyPostService.deletePost(req, res);
+        const id = req.params.id;
+        const postDelete = await MyPostService.deletePost(id);
         res.json(postDelete); 
     }
 }

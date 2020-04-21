@@ -3,30 +3,29 @@ const MyCommentRepository = new CommentRepository();
 
 module.exports = class PostService {
 
-    async saveComment(req, res) {
-        const newComment = await MyCommentRepository.saveComment(req, res);
-        res.json(newComment); 
+    async saveComment(id, comment) {
+        const newComment = await MyCommentRepository.saveComment(id, comment);
+        return newComment; 
     };
 
-    async getComments(req, res) {
-        const allComments = await MyCommentRepository.getComments(req, res);
-        res.json(allComments);
+    async getComments() {
+        const allComments = await MyCommentRepository.getComments();
+         return allComments;
     }
 
-    async getComment(req, res) {
-        const getCommentById = await MyCommentRepository.getComment(req, res);
-        res.json(getCommentById);
+    async getComment(id) {
+        const getCommentById = await MyCommentRepository.getComment(id);
+        return getCommentById;
     };
 
-
-    async updateComment(req, res) {
-        const updateComment = await MyCommentRepository.updateComment(req, res);
-        res.json(updateComment);
+    async updateComment(id, coReq) {
+        const updateComment = await MyCommentRepository.updateComment(id, coReq);
+        return updateComment;
     }
 
-    async deleteComment(req, res) {
-        const commentDelete = await MyCommentRepository.deleteComment(req, res);
-        res.json(commentDelete); 
+    async deleteComment(id) {
+        const commentDelete = await MyCommentRepository.deleteComment(id);
+        return commentDelete; 
         
     }
 }

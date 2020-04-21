@@ -3,9 +3,7 @@ const OffensiveWordSchema = require ('../models/offensiveWords');
 
 module.exports = class OffensiveWordRepository {
 
-    async saveOffensiveWord(req, res) {
-
-        const offWord = req.body
+    async saveOffensiveWord(offWord) {
 
         if (typeof offWord.word != "string" || typeof offWord.level != "number") {
             res.sendStatus(400);
@@ -17,16 +15,13 @@ module.exports = class OffensiveWordRepository {
             });
     
             //save resource
-            await newOffensiveWord.save(); 
-    
-            //Return new resource
-            res.json(newOffensiveWord); 
+            return await newOffensiveWord.save(); 
         }
     };
 
-    async getOffensiveWords(req, res) {
+    async getOffensiveWords() {
         const allOffensiveWords = await OffensiveWordSchema.find({});
-        res.json(allOffensiveWords); 
+        return allOffensiveWords; 
     }
 
     async getOffensiveWord(req, res) {

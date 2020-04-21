@@ -3,18 +3,9 @@ const PostSchema = require ('../models/post');
 
 module.exports = class CommentRepository {
 
-    async saveComment(req, res) {
+    async saveComment(id, comment) {
         try {
-            const id= req.params.id;
-            const comment = req.body
-
-            if (typeof comment.commentAuthorNickName != "string" || typeof comment.commentContent != 'string') {
-                res.sendStatus(400);
-            } else {
-
                 const postasign = await PostSchema.findById(id)
-                console.log("postasign")
-                console.log(postasign)
 
                 //create object
                 const newComment = new CommentSchema ({
@@ -33,82 +24,59 @@ module.exports = class CommentRepository {
 
                 //Return new resource
                 return newComment; 
-            }
+
         } catch (err) {
             console.log(err.message)
             return err.message
         }
     };
 
-    async getComments(req, res) {
+    async getComments() {
         try {
             const allComments = await CommentSchema.find().exec(); 
-            res.json(allComments);
+            return allComments;
         } catch (err) {
             console.log(err.message)
             return err.message
         }
 
     };
-    async getComment(req, res) {
 
-    try {
-        const id= req.params.id;
-        const co= await CommentSchema.findById(id); 
-        
-    
-        if(!co) {
-            res.sendStatus(404);
-        } else {
-            return co; 
-        }
-    } catch (err) {
-        console.log(err.message)
-        return err.message
-    }
-    };
-    async updateComment(req, res) {
+    async getComment(id) {
         try {
-            const id = req.params.id;
-            const co = await CommentSchema.findById(id); 
+            const co= await CommentSchema.findById(id); 
+            return co; 
 
-            if(!co){
-                res.sendStatus(404);
-            } else {
-                const coReq = req.body;
-
-                //validation
-                if (typeof coReq.commentAuthorNickName != "string" || typeof coReq.commentContent != "string") {
-                    res.sendStatus(404);
-
-                } else {
-                    //update fields in model
-                        co.commentAuthorNickName = coReq.commentAuthorNickName;
-                        co.commentContent = coReq.commentContent;
-                    
-                    //upgrate resource
-                    let commentSave = await co.save() 
-
-                    //return update resource
-                    res.json(commentSave);
-                }
-            }
         } catch (err) {
             console.log(err.message)
             return err.message
         }
     };
-    async deleteComment(req, res) {
-        try {   
-            const id = req.params.id;
+    
+    async updateComment(id, coReq) {
+        try {
             const co = await CommentSchema.findById(id); 
 
-            if(!co) {
-                res.sendStatus(404);
-            } else {
-                const CommentDelete = await CommentSchema.findByIdAndDelete(id); 
-                res.json(CommentDelete); 
-            }
+            //update fields in model
+            co.commentAuthorNickName = coReq.commentAuthorNickName;
+            co.commentContent = coReq.commentContent;
+                    
+            //upgrate resource
+            let commentSave = await co.save() 
+
+            //return update resource
+            return commentSave;
+
+        } catch (err) {
+            console.log(err.message)
+            return err.message
+        }
+    };
+    async deleteComment(id) {
+        try {   
+            const CommentDelete = await CommentSchema.findByIdAndDelete(id); 
+            return CommentDelete; 
+    
         } catch (err) {
             console.log(err.message)
             return err.message

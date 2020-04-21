@@ -3,30 +3,28 @@ const MyPostRepository = new PostRepository();
 
 module.exports = class PostService {
 
-    async savePost(req, res) {
-        const newPost = await MyPostRepository.savePost(req, res);
-        res.json(newPost); 
+    async savePost(post) {
+        const newPost = await MyPostRepository.savePost(post);
+        return(newPost); 
     };
 
-    async getPosts(req, res) {
-        const allPosts = await MyPostRepository.getPosts(req, res);
-        res.json(allPosts);
+    async getPosts() {
+        const allPosts = await MyPostRepository.getPosts();
+        return allPosts;
     }
 
-    async getPost(req, res) {
-        const getPostById = await MyPostRepository.getPost(req, res);
-        res.json(getPostById);
+    async getPost(id) {
+        const getPostById = await MyPostRepository.getPost(id);
+        return getPostById;
     };
 
-
-    async updatePost(req, res) {
-        const updatePost = await MyPostRepository.updatePost(req, res);
-        res.json(updatePost);
+    async updatePost(id, poReq) {
+        const updatePost = await MyPostRepository.updatePost(id, poReq);
+        return updatePost;
     }
 
-    async deletePost(req, res) {
-        const postDelete = await MyPostRepository.deletePost(req, res);
-        res.json(postDelete); 
-        
+    async deletePost(id) {
+        const postDelete = await MyPostRepository.deletePost(id);
+        return postDelete; 
     }
 }

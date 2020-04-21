@@ -8,7 +8,10 @@ const MyOffensiveService = new OffensiveService();
 module.exports = class OffensiveWordController {
 
     async saveOffensiveWord(req, res) {
-        const newOffensiveWord = await MyOffensiveService.saveOffensiveWord(req, res);
+
+        const offWord = req.body
+
+        const newOffensiveWord = await MyOffensiveService.saveOffensiveWord(offWord);
         res.json(newOffensiveWord); 
     };
 

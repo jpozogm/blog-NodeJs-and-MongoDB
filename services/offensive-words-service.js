@@ -3,9 +3,9 @@ const MyOffensiveRepository = new OffensiveRepository();
 
 module.exports = class PostService {
 
-    async saveOffensiveWord(req, res) {
-        const saveOffensiveWord = await MyOffensiveRepository.saveOffensiveWord(req, res);
-        res.json(saveOffensiveWord); 
+    async saveOffensiveWord(offWord) {
+        const saveOffensiveWord = await MyOffensiveRepository.saveOffensiveWord(offWord);
+        return saveOffensiveWord; 
     };
 
     async getOffensiveWords(req, res) {
