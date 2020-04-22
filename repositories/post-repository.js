@@ -25,13 +25,13 @@ module.exports = class PostRepository {
     };
 
     async getPosts() {
-        const allPosts = await PostSchema.find({}).populate('comment').select({__v:0}) //.select({__v:0}); select indicas qué campos no quieres que te devuelve la BBDD, si pones nombre no te devuelve el nombre
+        const allPosts = await PostSchema.find({}).populate('postComments').select({__v:0}) //.select({__v:0}); select indicas qué campos no quieres que te devuelve la BBDD, si pones nombre no te devuelve el nombre
         return allPosts; 
     }
 
     async getPost(id) {
         try {
-        return await PostSchema.findById(id).populate('comment'); 
+        return await PostSchema.findById(id).populate('postComments'); 
         } catch (err){
             console.log(err);
             return err.message;
