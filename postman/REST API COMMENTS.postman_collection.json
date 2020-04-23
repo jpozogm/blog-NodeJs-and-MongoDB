@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "df2bc2f9-d14e-4ffa-bd7c-fb4027a3daf4",
-		"name": "REST API POSTS",
+		"_postman_id": "767eb420-002b-4138-8314-85f747d7694a",
+		"name": "REST API COMMENTS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "New Post POST",
+			"name": "New Post COMMENT",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -18,85 +18,84 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"postAuthorName\": \"Rajoy\",\n\t\"postAuthorNickName\": \"M.Rajoy\",\n\t\"postTittle\": \"refactorizar Hello world\",\n\t\"postContent\": \"un plato es un plato\"\n}"
+					"raw": "{\n\t\"commentAuthorNickName\": \"M.Rajoy\",\n\t\"commentContent\": \"la cerámica de Talavera no es cosa menor. Dicho de otra manera, es cosa mayor\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/",
+					"raw": "http://localhost:3000/comments/5e9ea787a31105c3317106eb",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
-						""
+						"comments",
+						"5e9ea787a31105c3317106eb"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Query Posts GET",
+			"name": "Query Posts COMMENT",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/posts/",
+					"raw": "http://localhost:3000/comments",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
-						""
+						"comments"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Query Post GET by ID",
+			"name": "Query Comment GET by ID",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/posts/5e9ea710a31105c3317106e9",
+					"raw": "http://localhost:3000/comments/5e9ea799a31105c3317106ec",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
-						"5e9ea710a31105c3317106e9"
+						"comments",
+						"5e9ea799a31105c3317106ec"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete Post DELETE",
+			"name": "Delete Comment DELETE",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/posts/5e9ea710a31105c3317106e9",
+					"raw": "http://localhost:3000/comments/5e9ea6bfa31105c3317106e8",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
-						"5e9ea710a31105c3317106e9"
+						"comments",
+						"5e9ea6bfa31105c3317106e8"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Query Post PUT",
+			"name": "Query Comment PUT",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -110,19 +109,41 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/5e9ea710a31105c3317106e9",
+					"raw": "http://localhost:3000/comments/5e982c1e14b04394c3fcabb2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
-						"5e9ea710a31105c3317106e9"
+						"comments",
+						"5e982c1e14b04394c3fcabb2"
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cfa1b2f2-2943-4754-9463-b71e143b4cb5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "28e3a60d-17a8-4875-8e3f-09625aef5535",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"protocolProfileBehavior": {}
