@@ -19,6 +19,8 @@ module.exports = class PostService {
     };
 
     async updatePost(id, poReq) {
+        //llamada intermedia: base de datos
+        //const getPostById = await MyPostRepository.getPost(id);
         const updatePost = await MyPostRepository.updatePost(id, poReq);
         return updatePost;
     }

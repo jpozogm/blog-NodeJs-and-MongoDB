@@ -1,5 +1,8 @@
 const UserController = require ('../controllers/user-contollers')
 const myUserController = new UserController();
+const config = require ("../config");
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
 
 class BasicAuth {
@@ -7,14 +10,16 @@ class BasicAuth {
 
     async verify(username, password, done) {
  
-        const getUser = await myUserController.CheckUserByName(username);
+        const user = await myUserController.CheckUserByName(username);
 
-        if ( getUser != null && username == getUser.user && password == getUser.password) { 
-            return done(null, { username, password });
+        if (!user) {
+            return done(null, false, { message: 'User not found'});
+        }
+        if (await bcrypt.compare(password, user.password)) { 
+            return done(null, user);
         } else {
             return done(null, false, { message: 'Incorrect username or password' });
         }
     }  
 }
-
 module.exports = new BasicAuth();

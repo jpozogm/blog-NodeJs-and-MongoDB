@@ -6,7 +6,9 @@ const MyPostService = new PostService();
 module.exports = class PostController {
 
     async savePost(req, res) {
-        const post = req.body
+        const post = req.body;
+        post.user = req.user._id; //incluyo el user:user id al crear el post
+
         const newPost = await MyPostService.savePost(post);
         res.json(newPost); 
     };
@@ -22,7 +24,7 @@ module.exports = class PostController {
         res.json(getPostById);
     };
 
-    async updatePost(req, res) {
+    async updatePost(req, res) { //id del user loggued
 
         const id = req.params.id;
         const poReq = req.body;

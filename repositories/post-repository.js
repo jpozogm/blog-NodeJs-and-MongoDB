@@ -10,6 +10,7 @@ module.exports = class PostRepository {
                     postAuthorNickName: post.postAuthorNickName,
                     postTittle: post.postTittle,
                     postContent: post.postContent,
+                    user: post.user,
                 });
         
                 //save resource

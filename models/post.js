@@ -6,29 +6,35 @@ const PostSchema = Schema({
 
     postAuthorName: {
         type: String,
-        require: true,
+        required: true,
     },
         
     postAuthorNickName: {
         type: String,
-        require: true,
+        required: true,
     },
 
     postTittle: {
         type: String, 
         default: "Hello World",
-        require: true
+        required: true
     },
 
     postContent: {
         type: String,
-        require: true
+        required: true
     },
 
     postComments: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: "comments"
     }],
+
+    user: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "users",
+        required: true
+    },
 });
 
 module.exports = mongoose.model("post", PostSchema);

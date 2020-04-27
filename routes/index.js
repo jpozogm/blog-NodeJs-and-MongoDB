@@ -1,13 +1,24 @@
 //ROUTES
 const express = require('express');
-
-
+const config = require ('../config').SECRET_KEY;
+const jwt = require("jsonwebtoken");
 
 const passport= require('passport');
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const JwtStrategy = require('passport-jwt').Strategy;
 const BasicStrategy = require('passport-http').BasicStrategy;
 const basicAuth = require('../middelware/BasicAuth');
-const verify = basicAuth.verify;
-passport.use(new BasicStrategy(verify));
+passport.use(new BasicStrategy(basicAuth.verify));
+
+
+const jwtOps = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config
+}
+
+const jwtAuth = require("../middelware/jwtAuth");
+const verifyToken = jwtAuth.verifyToken;
+passport.use(new JwtStrategy(jwtOps, verifyToken))
 
 
 const PostCtrl = require('../controllers/post-contollers')
@@ -29,11 +40,11 @@ const api = express.Router();
 
 api.use(passport.initialize());
 
-api.post('/posts', passport.authenticate('basic', {session:false}), myPostCtrl.savePost); // *
+api.post('/posts', passport.authenticate('jwt', {session:false}), myPostCtrl.savePost); // *
 api.get('/posts', myPostCtrl.getPosts);
 api.get('/posts/:id', myPostCtrl.getPost);
-api.delete('/posts/:id', myPostCtrl.deletePost);
-api.put('/posts/:id', myPostCtrl.updatePost); 
+api.delete('/posts/:id', passport.authenticate('jwt', {session:false}), myPostCtrl.deletePost);
+api.put('/posts/:id', passport.authenticate('jwt', {session:false}), myPostCtrl.updatePost); 
 
 api.post('/comments/:id',myOffensiveValidator.OffensiveWordsValidator, myCommentCtrl.saveComment);
 api.get('/comments', myCommentCtrl.getComments);
@@ -54,14 +65,13 @@ api.get('/userbyName', myUserCtrl.getUserByName);
 api.delete('/user/:id', myUserCtrl.deleteUser);
 api.put('/user/:id', myUserCtrl.updateUser); 
 
+api.post("/login", passport.authenticate('basic', {session: false}), (req, res) =>{
+    const body = {_id : req.user_id, user : req.user.user}
+    const token = jwt.sign({body}, config);
 
+    return res.status(200).json({message: "Auth Passed", token});
+})
 
 module.exports = api;
 
 
-
-
-/*
-el basic es porque la estrategis se llama así.
-session: false - es para cookies de sesión. En API REST se recomienda false.
-*/

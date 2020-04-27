@@ -6,14 +6,19 @@ const UserSchema = Schema({
 
     user: {
         type: String,
-        require: true,
+        required: true,
     },
         
     password: {
         type: String,
         minlength:1,
-        require: true,
+        required: true,
     }, 
+
+    rol: {
+        type: String,
+        default: "publisher",
+    }
 },
 {
     timestamps: true
@@ -22,3 +27,4 @@ const UserSchema = Schema({
 
 module.exports = mongoose.model("user", UserSchema);
 
+//module.exports = mongoose.model("user", UserSchema, "user");
