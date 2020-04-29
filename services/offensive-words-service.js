@@ -10,7 +10,7 @@ module.exports = class PostService {
 
     async getOffensiveWords(req, res) {
         const getOffensiveWords = await MyOffensiveRepository.getOffensiveWords(req, res);
-        res.json(getOffensiveWords);
+        return getOffensiveWords;
     }
 
     async getOffensiveWord(req, res) {

@@ -9,7 +9,9 @@ module.exports = class CommentController {
 
     async saveComment(req, res) {
         const id= req.params.id;
+
         const comment = req.body
+        comment.user = req.user._id;
 
         const newComment = await MyCommentService.saveComment(id, comment);
         res.json(newComment); 
@@ -27,6 +29,7 @@ module.exports = class CommentController {
         res.json(getCommentById);
     };
 
+
     async updateComment(req, res) {
         const id = req.params.id;
         const coReq = req.body;
@@ -41,4 +44,10 @@ module.exports = class CommentController {
         const commentDelete = await MyCommentService.deleteComment(id);
         res.json(commentDelete); 
     }
+
+    async MiddelwareGetComment(req) {
+        const id= req;
+        const getCommentById = await MyCommentService.getComment(id);
+        return getCommentById;
+    };
 }

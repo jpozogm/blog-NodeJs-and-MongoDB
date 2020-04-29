@@ -39,10 +39,26 @@ module.exports = class UserController {
         res.json(updateUser);
     }
 
-
     async deleteUser(req, res) {
         const id = req.params.id;
         const userDelete = await MyUserService.deleteUser(id);
         res.json(userDelete); 
     }
+
+    async FunctiongetUsers(req, res) {
+        const allUsers = await MyUserService.getUsers();
+        return allUsers;
+    };
+
+    async FunctionSaveUser(req, res) {
+        const user = req.body
+        const newUser = await MyUserService.saveUser(user);
+        return newUser; 
+    };
+
+    async MiddelwareUserById(req) {
+        const id= req
+        const getUserById = await MyUserService.getUserById(id);
+        return getUserById; 
+    };
 }

@@ -12,8 +12,9 @@ module.exports = class OffensiveValidator {
         const comment = req.body;
         const offensiveWordsDB = await myoffensiveWordRepository.getOffensiveWords();
 
+
         const offensiveWordsFound = await checkOffensive.checkWordsOnComments(comment.commentContent, offensiveWordsDB)
-        console.log(offensiveWordsFound.length)
+
 
         if (offensiveWordsFound.length === 0) {
             next()

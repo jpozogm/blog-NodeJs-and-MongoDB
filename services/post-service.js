@@ -1,6 +1,9 @@
 const PostRepository = require('../repositories/post-repository')
 const MyPostRepository = new PostRepository(); 
 
+const UserRepository = require('../repositories/user-repository')
+const MyUserRepository = new UserRepository();
+
 module.exports = class PostService {
 
     async savePost(post) {
@@ -18,10 +21,10 @@ module.exports = class PostService {
         return getPostById;
     };
 
-    async updatePost(id, poReq) {
-        //llamada intermedia: base de datos
-        //const getPostById = await MyPostRepository.getPost(id);
-        const updatePost = await MyPostRepository.updatePost(id, poReq);
+    async updatePost(id, poReq, userId) {
+        const getUserById = await MyUserRepository.getUserById(userId);
+        const getPostById = await MyPostRepository.getPost(id);
+        const updatePost = await MyPostRepository.updatePost(id, poReq, getUserById, getPostById);
         return updatePost;
     }
 

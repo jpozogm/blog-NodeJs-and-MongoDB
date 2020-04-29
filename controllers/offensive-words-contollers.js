@@ -1,5 +1,3 @@
-const OffensiveWordSchema = require('../models/offensiveWords');
-
 const OffensiveService = require('../services/offensive-words-service')
 const MyOffensiveService = new OffensiveService();
 
@@ -8,9 +6,7 @@ const MyOffensiveService = new OffensiveService();
 module.exports = class OffensiveWordController {
 
     async saveOffensiveWord(req, res) {
-
         const offWord = req.body
-
         const newOffensiveWord = await MyOffensiveService.saveOffensiveWord(offWord);
         res.json(newOffensiveWord); 
     };
@@ -19,6 +15,17 @@ module.exports = class OffensiveWordController {
         const allOffensiveWords = await MyOffensiveService.getOffensiveWords(req, res);
         res.json(allOffensiveWords);
     }
+
+    async FunctionGetOffensiveWords(req, res) {
+        const allOffensiveWords = await MyOffensiveService.getOffensiveWords(req, res);
+        return allOffensiveWords;
+    }
+
+    async FunctionSaveOffensiveWord(req, res) {
+        const offWord = req.body
+        const newOffensiveWord = await MyOffensiveService.saveOffensiveWord(offWord);
+        return newOffensiveWord; 
+    };
 
     async getOffensiveWord(req, res) {
         const getOffensiveWord = await MyOffensiveService.getOffensiveWord(req, res);

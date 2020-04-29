@@ -1,0 +1,33 @@
+[
+    {
+    "body" : {
+        "user": "Rajoy",
+        "password": "1234",
+        "role": "admin"
+        }
+    },
+
+    {
+    "body" : {
+        "user": "Sagan",
+        "password": "1234",
+        "role": "admin"
+        }
+    },
+
+    {
+    "body" : {
+        "user": "Einstein",
+        "password": "1234",
+        "role": "admin"
+        }
+    },
+
+    {
+    "body" : {
+        "user": "Tesla",
+        "password": "1234",
+        "role": "admin"
+        }
+    }
+]

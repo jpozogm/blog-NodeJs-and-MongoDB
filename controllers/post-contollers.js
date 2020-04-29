@@ -1,4 +1,5 @@
 const PostSchema = require('../models/post');
+const jwt = require("jsonwebtoken");
 
 const PostService = require('../services/post-service')
 const MyPostService = new PostService();
@@ -24,12 +25,13 @@ module.exports = class PostController {
         res.json(getPostById);
     };
 
-    async updatePost(req, res) { //id del user loggued
+    async updatePost(req, res) { 
 
+        const userId = req.user._id; //id user loggued
         const id = req.params.id;
         const poReq = req.body;
 
-        const updatePost = await MyPostService.updatePost(id, poReq);
+        const updatePost = await MyPostService.updatePost(id, poReq, userId);
         res.json(updatePost);
     }
 
@@ -38,4 +40,10 @@ module.exports = class PostController {
         const postDelete = await MyPostService.deletePost(id);
         res.json(postDelete); 
     }
+
+    async MiddelwareGetPost(req) {
+        const id= req;
+        const getPostById = await MyPostService.getPost(id);
+        return getPostById; 
+    };
 }

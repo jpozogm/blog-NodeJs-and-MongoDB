@@ -10,6 +10,7 @@ module.exports = class UserRepository {
             const newUser = new UserSchema ({
                 user: user.user,
                 password: passwordHash,
+                role: user.role
             });
         
             //save resource

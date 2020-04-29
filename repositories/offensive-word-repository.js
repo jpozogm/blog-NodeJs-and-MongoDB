@@ -5,18 +5,15 @@ module.exports = class OffensiveWordRepository {
 
     async saveOffensiveWord(offWord) {
 
-        if (typeof offWord.word != "string" || typeof offWord.level != "number") {
-            res.sendStatus(400);
-        } else {
-            //create object
-            const newOffensiveWord = new OffensiveWordSchema ({
-                word: offWord.word,
-                level: offWord.level,
-            });
+        //create object
+        const newOffensiveWord = new OffensiveWordSchema ({
+            word: offWord.word,
+            level: offWord.level,
+        });
     
             //save resource
             return await newOffensiveWord.save(); 
-        }
+
     };
 
     async getOffensiveWords() {

@@ -15,7 +15,7 @@ const UserSchema = Schema({
         required: true,
     }, 
 
-    rol: {
+    role: {
         type: String,
         default: "publisher",
     }

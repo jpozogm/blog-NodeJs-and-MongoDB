@@ -39,20 +39,36 @@ module.exports = class PostRepository {
         }
     };
 
-    async updatePost(id, poReq) {
+    async updatePost(id, poReq, getUserById, getPostById) {
+
+        console.log("getPostByUser", getPostById) //datos post 
+        console.log("getUserById", getUserById) //datos usuario logado
+        console.log("poReq", poReq) // info con el cambio
+        console.log("id", id) //id del post
+
+        const postId = getPostById.user;
+        const userId = getUserById.id;
+        const userRole = getUserById.role
+
         try {
-        const po= await PostSchema.findById(id); 
 
-                po.postAuthorName = poReq.postAuthorName;
-                po.postAuthorNickName = poReq.postAuthorNickName;
-                po.postTittle = poReq.postTittle;
-                po.postContent = poReq.postContent;
-            
-            //upgrate resource
-            let postSave = await po.save() 
+            if(postId == userId || userRole === "admin") {
 
-            //return update resource
-            return postSave;
+                const po= await PostSchema.findById(id); 
+
+                    po.postAuthorName = poReq.postAuthorName;
+                    po.postAuthorNickName = poReq.postAuthorNickName;
+                    po.postTittle = poReq.postTittle;
+                    po.postContent = poReq.postContent;
+                
+                //upgrate resource
+                let postSave = await po.save() 
+
+                //return update resource
+                return postSave;
+            } else {
+                return "El usuario logado no tiene estos derechos";
+            }
         } catch (err){
             console.log(err);
             return err.message;
