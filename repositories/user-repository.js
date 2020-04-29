@@ -40,8 +40,6 @@ module.exports = class UserRepository {
     };
 
     async getUserByName(username) {
-    
-        console.log(typeof username)
         try {
         return await UserSchema.findOne({user : username}); 
         } catch (err){

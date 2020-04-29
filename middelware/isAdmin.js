@@ -24,30 +24,43 @@ class isAdmin {
         }
     }
 
+    async isAdminOrLoggued(req, res, next) {
+        try {
+            const userId = req.user.id; //id user loggued
+            const getUserById = await MyUserController.MiddelwareUserById(userId);
+            const userRole = getUserById.role;
+
+            return ( userId || userRole === "admin") ? next() : res.status(403).json({message: "el usuario no tiene derechos"});;
+
+        } catch (err){
+        console.log(err);
+        return err.message;        
+        }
+    }
 
     async isLoggedOrAdminPost(req, res, next) {
 
         try {
-        const userId = req.user.id; //id user loggued
-        const id = req.params.id;
- 
-        const getUserById = await MyUserController.MiddelwareUserById(userId);
-        const getPostById = await MyPostController.MiddelwareGetPost(id);
+            const userId = req.user.id; //id user loggued
+            const id = req.params.id;
+    
+            const getUserById = await MyUserController.MiddelwareUserById(userId);
+            const getPostById = await MyPostController.MiddelwareGetPost(id);
 
-        if(getUserById && getPostById ) {
+            if(getUserById && getPostById ) {
 
-            const postId = getPostById.user;
-            const userById = getUserById.id;
-            const userRole = getUserById.role;
+                const postId = getPostById.user;
+                const userById = getUserById.id;
+                const userRole = getUserById.role;
 
-            if(postId == userById || userRole === "admin"){
-                next();
-            } else {
-                res.status(403).json({message: "el usuario no tiene derechos"});
+                if(postId == userById || userRole === "admin"){
+                    next();
+                } else {
+                    res.status(403).json({message: "el usuario no tiene derechos"});
+                }
+            }  else {
+                res.status(403).json({message: "El post no existe"});
             }
-        }  else {
-            res.status(403).json({message: "El post no existe"});
-        }
         } catch (err){
         console.log(err);
         return err.message;        

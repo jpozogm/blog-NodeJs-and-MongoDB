@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
-const app = require('../app');
-const https = require('https');
-const fs = require('fs');
+
 
 const config = require('../config');
 const url = config.db;
@@ -30,28 +28,11 @@ const connectToDb = async () => {
             const responseWordsOnLoad =  await mycheckOWordsOnLoad.checkOWordsOnLoad();
             const responseAdminsOnLoad =   await myheckAdminUserInit.checkAdmins();
           
-            console.log(`Server started in port ${config.port}`,' =====>',responseWordsOnLoad,' =====>', responseAdminsOnLoad)
+            console.log(`Server started in port ${config.port}`,' || ',responseWordsOnLoad,' || ', responseAdminsOnLoad)
     } catch (err) {
         console.log(err);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-   //const responseAdminsOnLoad =   await checkAdminUserInit.checkAdminsOnLoad();
- //console.log(`Server started in port ${config.port}`,' =====>',responseWordsOnLoad,' =====>', responseAdminsOnLoad);
-        
- 
 
 // Para certificación HTTPS
 //openssl req -nodes -new -x509 -keyout server.key -out server.cert
@@ -62,9 +43,6 @@ const connectToDb = async () => {
 }, app).listen(3443, () => {
     console.log("Https server started in port 3443");
 });  */
-
-
-
 
 module.exports = connectToDb;
 

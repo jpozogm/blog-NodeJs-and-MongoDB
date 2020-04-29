@@ -14,12 +14,14 @@ module.exports = class CommentController {
         comment.user = req.user._id;
 
         const newComment = await MyCommentService.saveComment(id, comment);
-        res.json(newComment); 
+        res.status(500).json(newComment); 
     };
 
     async getComments(req, res) {
         const allComments = await MyCommentService.getComments();
-        res.json(allComments);
+        res.status(500).json(allComments);
+
+        
     };
 
     async getComment(req, res) {

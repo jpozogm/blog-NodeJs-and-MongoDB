@@ -26,7 +26,7 @@ module.exports = class PostRepository {
     };
 
     async getPosts() {
-        const allPosts = await PostSchema.find({}).populate('postComments').select({__v:0}) //.select({__v:0}); select indicas qué campos no quieres que te devuelve la BBDD, si pones nombre no te devuelve el nombre
+        const allPosts = await PostSchema.find({}).populate('postComments').select({__v:0})
         return allPosts; 
     }
 
@@ -40,11 +40,6 @@ module.exports = class PostRepository {
     };
 
     async updatePost(id, poReq, getUserById, getPostById) {
-
-        console.log("getPostByUser", getPostById) //datos post 
-        console.log("getUserById", getUserById) //datos usuario logado
-        console.log("poReq", poReq) // info con el cambio
-        console.log("id", id) //id del post
 
         const postId = getPostById.user;
         const userId = getUserById.id;

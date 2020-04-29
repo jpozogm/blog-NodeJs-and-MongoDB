@@ -45,7 +45,7 @@ const api = express.Router();
 
 api.use(passport.initialize());
 
-api.post('/posts', passport.authenticate('jwt', {session:false}), isAdmin.isLoggedOrAdminPost, myPostCtrl.savePost); // *
+api.post('/posts', passport.authenticate('jwt', {session:false}), isAdmin.isAdminOrLoggued, myPostCtrl.savePost); // *
 api.get('/posts', myPostCtrl.getPosts);
 api.get('/posts/:id', myPostCtrl.getPost);
 api.delete('/posts/:id', passport.authenticate('jwt', {session:false}),isAdmin.isLoggedOrAdminPost, myPostCtrl.deletePost);

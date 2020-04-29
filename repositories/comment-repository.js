@@ -7,8 +7,6 @@ module.exports = class CommentRepository {
         try {
                 const postasign = await PostSchema.findById(id)
 
-                console.log("+++++comment", comment)
-
                 //create object
                 const newComment = new CommentSchema ({
                     commentAuthorNickName: comment.commentAuthorNickName,
@@ -19,7 +17,6 @@ module.exports = class CommentRepository {
 
                 //save resource
                 await newComment.save(); 
-                console.log(newComment.commentsPostId)
 
                 //asignar el comentario al post y guardarlo
                 await postasign.postComments.push(newComment)
@@ -46,7 +43,6 @@ module.exports = class CommentRepository {
     };
 
     async getComment(id) {
-        console.log("ENTRO A BUSCAR EL COMENTARIO")
         try {
             const co= await CommentSchema.findById(id); 
             return co; 

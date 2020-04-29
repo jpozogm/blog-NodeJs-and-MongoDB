@@ -3,8 +3,6 @@ class OffensiveWordsIncludes {
 
     async checkWordsOnComments (comment, offensiveWordsList) {
 
-        console.log("++++offensiveWordsList", offensiveWordsList)
-        console.log("++++comment", comment)
         try {
             let notAllowedOffensiveWords = [];
             let offensiveWordsDBlist = [];
@@ -17,8 +15,6 @@ class OffensiveWordsIncludes {
 
             commentCad.forEach((word) => {
                 const isWordIncluded = new RegExp(word).test(offensiveWordsDBlist)
-
-                console.log("++++isWordIncluded", isWordIncluded)
 
                 if(isWordIncluded) {
                     notAllowedOffensiveWords = [...notAllowedOffensiveWords, word];
