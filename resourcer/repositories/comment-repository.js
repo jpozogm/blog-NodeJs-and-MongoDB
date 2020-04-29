@@ -1,5 +1,5 @@
-const CommentSchema = require ('../models/comment');
-const PostSchema = require ('../models/post');
+const CommentSchema = require ('../../models/comment');
+const PostSchema = require ('../../models/post');
 
 module.exports = class CommentRepository {
 

@@ -23,19 +23,19 @@ passport.use(new JwtStrategy(jwtOps, verifyToken))
 const isAdmin = require('../middelware/isAdmin')
 
 
-const PostCtrl = require('../controllers/post-contollers')
+const PostCtrl = require('../resourcer/controllers/post-contollers')
 const myPostCtrl = new PostCtrl();
 
-const CommentCtrl = require('../controllers/comment-contollers')
+const CommentCtrl = require('../resourcer/controllers/comment-contollers')
 const myCommentCtrl = new CommentCtrl();
 
-const OffensiveWordCtrl = require('../controllers/offensive-words-contollers')
+const OffensiveWordCtrl = require('../resourcer/controllers/offensive-words-contollers')
 const myOffensiveWordCtrl = new OffensiveWordCtrl();
 
 const OffensiveValidator = require('../middelware/offensive-validator');
 const myOffensiveValidator = new OffensiveValidator();
 
-const UserCtrl = require('../controllers/user-contollers'); 
+const UserCtrl = require('../resourcer/controllers/user-contollers'); 
 const myUserCtrl = new UserCtrl;
 
 

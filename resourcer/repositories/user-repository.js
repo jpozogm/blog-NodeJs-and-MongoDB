@@ -1,5 +1,5 @@
 
-const UserSchema = require ('../models/user');
+const UserSchema = require ('../../models/user');
 const bcrypt = require ('bcrypt')
 
 module.exports = class UserRepository {
@@ -26,13 +26,17 @@ module.exports = class UserRepository {
     };
 
     async getUsers() {
-        const allUsers = await UserSchema.find({}).select({__v:0}) 
-        return allUsers; 
+        try{
+            const allUsers = await UserSchema.find({}).select({__v:0}) 
+            return allUsers; 
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     async getUserById(id) {
         try {
-        return await UserSchema.findById(id); 
+            return await UserSchema.findById(id); 
         } catch (err){
             console.log(err);
             return err.message;
@@ -41,7 +45,7 @@ module.exports = class UserRepository {
 
     async getUserByName(username) {
         try {
-        return await UserSchema.findOne({user : username}); 
+            return await UserSchema.findOne({user : username}); 
         } catch (err){
             console.log(err);
             return err.message;
@@ -51,7 +55,7 @@ module.exports = class UserRepository {
     async CheckUserByName(username) {
   
         try {
-        return await UserSchema.findOne({user : username}); 
+            return await UserSchema.findOne({user : username}); 
         } catch (err){
             console.log(err);
             return err.message;
@@ -61,7 +65,7 @@ module.exports = class UserRepository {
 
     async updateUser(id, usReq) {
         try {
-        const us= await UserSchema.findById(id); 
+            const us= await UserSchema.findById(id); 
 
                 us.user = usReq.user;
                 us.password = usReq.password;

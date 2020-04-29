@@ -1,8 +1,8 @@
-const UserController = require ('../controllers/user-contollers')
+const UserController = require ('../resourcer/controllers/user-contollers')
 const MyUserController = new UserController();
-const PostController = require ('../controllers/post-contollers')
+const PostController = require ('../resourcer/controllers/post-contollers')
 const MyPostController = new PostController();
-const CommentController = require('../controllers/comment-contollers')
+const CommentController = require('../resourcer/controllers/comment-contollers')
 const MyCommentController = new CommentController();
 
 

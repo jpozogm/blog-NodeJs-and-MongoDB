@@ -1,6 +1,6 @@
 const checkOffensive = require ('../validators/check-offensive');
 
-const offensiveWordRepository = require ('../repositories/offensive-word-repository')
+const offensiveWordRepository = require ('../resourcer/repositories/offensive-word-repository')
 const myoffensiveWordRepository = new offensiveWordRepository()
 
 

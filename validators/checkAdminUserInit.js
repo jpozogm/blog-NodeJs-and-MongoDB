@@ -1,4 +1,4 @@
-const UserController = require('../controllers/user-contollers');
+const UserController = require('../resourcer/controllers/user-contollers');
 const myUserController = new UserController();
 const AdminList = require('../data/adminList.json')
 

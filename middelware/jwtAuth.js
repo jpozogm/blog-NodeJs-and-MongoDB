@@ -1,4 +1,4 @@
-const userCtrl = require("../controllers/user-contollers");
+const userCtrl = require("../resourcer/controllers/user-contollers");
 const myUserCtrl = new userCtrl();
 
 class CheckJwtAuth{

@@ -2,7 +2,7 @@ const OffensiveWordsIncludes = require('./check-offensive');
 const ofensiveWordsList  = ["caca", "culo", "pedo", "pis"];
 
 
-describe ('validating if comment has oofensive words', () => {
+describe ('validating if comment has offensive words', () => {
 
     it('comment with offensive words', async () => {
         let comment = "Esto es comentario caca";

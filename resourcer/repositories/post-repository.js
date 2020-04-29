@@ -1,5 +1,5 @@
 
-const PostSchema = require ('../models/post');
+const PostSchema = require ('../../models/post');
 
 module.exports = class PostRepository {
 
@@ -26,8 +26,12 @@ module.exports = class PostRepository {
     };
 
     async getPosts() {
-        const allPosts = await PostSchema.find({}).populate('postComments').select({__v:0})
-        return allPosts; 
+        try{
+            const allPosts = await PostSchema.find({}).populate('postComments').select({__v:0})
+            return allPosts; 
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     async getPost(id) {

@@ -1,4 +1,4 @@
-const OffensiveWordController = require('../controllers/offensive-words-contollers');
+const OffensiveWordController = require('../resourcer/controllers/offensive-words-contollers');
 const myOffensiveWordsController = new OffensiveWordController();
 const OwList = require('../data/owList.json')
 
