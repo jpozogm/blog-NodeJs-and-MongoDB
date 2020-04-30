@@ -1,14 +1,28 @@
 const supertest = require ('supertest');
 const app = require('./app');
-const request = supertest(app)
+const request = supertest(app);
+const Base64 = require('Base64');
 
 
 describe('System test', () =>{
 
+    let admintoken;
+
     it('Testing POST', async ()=>{
 
-        const admintoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijp7InJvbGUiOiJhZG1pbiIsInVzZXIiOiJTYWdhbiJ9LCJpYXQiOjE1ODgxNzQ3MDF9.WYBW0oTi_ffRiEP2hFwgE-cyeWMvCn3_wNFw_K5rg8o"
+        
+        const credentials = {
+            username: 'Sagan',
+            password: '1234'
+        }
+      
+        const login = await request.post('/login')
+        .set('authorization', 'Basic ' + Base64.btoa(credentials.username+':'+credentials.password)).expect(200);
 
+        admintoken = login.body.token;
+
+        
+        
         const postResponse = await request.post('/posts')
             .set('Authorization', 'Bearer ' + admintoken)
             .set('Accept', 'application/json')
@@ -53,6 +67,6 @@ describe('System test', () =>{
         expect(deleteResponse).not.toBe(null);
 
         const getIDResponse2 = await request.get(`/posts/${postId}`).expect(200)
-        expect(getIDResponse2.body.postTittle).toBe("Humans");
+        expect(getIDResponse2.res.text).toBe("null");
     })
 })
