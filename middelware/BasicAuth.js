@@ -1,4 +1,4 @@
-const UserController = require ('../resourcer/controllers/user-contollers')
+const UserController = require ('../resourcer/controllers/user-controllers')
 const myUserController = new UserController();
 const config = require ("../config");
 const bcrypt = require('bcrypt');

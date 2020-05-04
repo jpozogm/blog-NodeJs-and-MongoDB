@@ -1,26 +1,18 @@
 [
     {
-    "body" : {
         "word": "caca",
-        "level": 1
-        }
+        "level": "1"
     },
     {
-    "body" : {
         "word": "culo",
-        "level": 2
-        }
+        "level": "2"
     },
     {
-    "body" : {
         "word": "pedo",
-        "level": 3
-        }
+        "level": "3"
     },
     {
-    "body" : {
         "word": "pis",
-        "level": 2
-        }
+        "level": "2"
     }
 ]

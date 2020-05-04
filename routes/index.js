@@ -23,23 +23,20 @@ passport.use(new JwtStrategy(jwtOps, verifyToken))
 const isAdmin = require('../middelware/isAdmin')
 
 
-const PostCtrl = require('../resourcer/controllers/post-contollers')
+const PostCtrl = require('../resourcer/controllers/post-controllers')
 const myPostCtrl = new PostCtrl();
 
-const CommentCtrl = require('../resourcer/controllers/comment-contollers')
+const CommentCtrl = require('../resourcer/controllers/comment-controllers')
 const myCommentCtrl = new CommentCtrl();
 
-const OffensiveWordCtrl = require('../resourcer/controllers/offensive-words-contollers')
+const OffensiveWordCtrl = require('../resourcer/controllers/offensive-words-controllers')
 const myOffensiveWordCtrl = new OffensiveWordCtrl();
 
 const OffensiveValidator = require('../middelware/offensive-validator');
 const myOffensiveValidator = new OffensiveValidator();
 
-const UserCtrl = require('../resourcer/controllers/user-contollers'); 
+const UserCtrl = require('../resourcer/controllers/user-controllers'); 
 const myUserCtrl = new UserCtrl;
-
-
-//meter midelware is Admin
 
 const api = express.Router();
 
@@ -72,7 +69,6 @@ api.put('/user/:id', myUserCtrl.updateUser);
 
 api.post("/login", passport.authenticate('basic', {session: false}), (req, res) =>{
 
-    //METER TRY CATCH AND FINALLY (next)
     const body = {role: req.user.role, _id : req.user_id, user : req.user.user}
     const token = jwt.sign({body}, config);
 

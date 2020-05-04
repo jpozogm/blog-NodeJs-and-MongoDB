@@ -1,3 +1,5 @@
+//npm test app.spec.js
+
 const supertest = require ('supertest');
 const app = require('./app');
 const request = supertest(app);
@@ -21,21 +23,21 @@ describe('System test', () =>{
 
         admintoken = login.body.token;
 
-        
+
         
         const postResponse = await request.post('/posts')
             .set('Authorization', 'Bearer ' + admintoken)
             .set('Accept', 'application/json')
             .send(
                 {
-                    "postTittle": "Cosmos",
+                    "posttitle": "Cosmos",
                     "postComments": [],
                     "postAuthorName": "Carl Sagan",
                     "postAuthorNickName": "sagan",
                     "postContent": "Para hacer una tarta de manzana primero tienes que crear un universo."
                 })
             .expect(200)
-        expect(postResponse.body.postTittle).toBe("Cosmos");
+        expect(postResponse.body.posttitle).toBe("Cosmos");
  
         const getResponse = await request.get('/posts').expect(200) 
         expect(getResponse.body.length).toBeGreaterThan(0);
@@ -43,7 +45,7 @@ describe('System test', () =>{
 
         const postId = postResponse.body._id;
         const getIDResponse = await request.get(`/posts/${postId}`).expect(200)
-        expect(getIDResponse.body.postTittle).toBe("Cosmos");
+        expect(getIDResponse.body.posttitle).toBe("Cosmos");
 
 
         const putResponse = await request.put(`/posts/${postId}`)
@@ -51,14 +53,14 @@ describe('System test', () =>{
             .set('Accept', 'application/json')
             .send(
                 {
-                  "postTittle": "Humans",
+                  "posttitle": "Humans",
                    "postComments": [],
                   "postAuthorName": "Carl Sagan",
                    "postAuthorNickName": "sagan",
                    "postContent": "Para hacer una tarta de manzana primero tienes que crear un universo."
                })
             .expect(200)
-        expect(putResponse.body.postTittle).toBe("Humans");
+        expect(putResponse.body.posttitle).toBe("Humans");
 
         const deleteResponse = await request.delete(`/posts/${postId}`)
             .set('Authorization', 'Bearer ' + admintoken)

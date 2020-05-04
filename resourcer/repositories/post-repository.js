@@ -8,7 +8,7 @@ module.exports = class PostRepository {
                 const newPost = new PostSchema ({
                     postAuthorName: post.postAuthorName,
                     postAuthorNickName: post.postAuthorNickName,
-                    postTittle: post.postTittle,
+                    posttitle: post.posttitle,
                     postContent: post.postContent,
                     user: post.user,
                 });
@@ -57,7 +57,7 @@ module.exports = class PostRepository {
 
                     po.postAuthorName = poReq.postAuthorName;
                     po.postAuthorNickName = poReq.postAuthorNickName;
-                    po.postTittle = poReq.postTittle;
+                    po.posttitle = poReq.posttitle;
                     po.postContent = poReq.postContent;
                 
                 //upgrate resource

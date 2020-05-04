@@ -62,7 +62,7 @@ module.exports = class PostController {
             }
         } catch(err) {
             console.log(err);
-            res.status(500).send(err)
+            res.status(err.code).send(err) //mensaje que me llega desde el servicio
         } finally {
             next();
         }

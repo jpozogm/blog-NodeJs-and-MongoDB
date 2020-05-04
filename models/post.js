@@ -14,7 +14,7 @@ const PostSchema = Schema({
         required: true,
     },
 
-    postTittle: {
+    posttitle: {
         type: String, 
         default: "Hello World",
         required: true

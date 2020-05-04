@@ -101,7 +101,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"postAuthorName\": \"Carl Sagan\",\n\t\"postAuthorNickName\": \"sagan\",\n\t\"postTittle\": \"Cosmos\",\n\t\"postContent\": \"Para hacer una tarta de manzana primero tienes que crear un universo.\"\n}",
+					"raw": "{\n\t\"postAuthorName\": \"Carl Sagan\",\n\t\"postAuthorNickName\": \"sagan\",\n\t\"posttitle\": \"Cosmos\",\n\t\"postContent\": \"Para hacer una tarta de manzana primero tienes que crear un universo.\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

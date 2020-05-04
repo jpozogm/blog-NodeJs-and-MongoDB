@@ -1,5 +1,5 @@
-const OffensiveWordController = require('../resourcer/controllers/offensive-words-contollers');
-const myOffensiveWordsController = new OffensiveWordController();
+const OffensiveWordRepository = require('../resourcer/repositories/offensive-word-repository');
+const myOffensiveWordRepository = new OffensiveWordRepository();
 const OwList = require('../data/owList.json')
 
 
@@ -9,15 +9,15 @@ module.exports = class checkOWordsOnLoad {
     async checkOWordsOnLoad(){
 
         try{
-            const ow = await myOffensiveWordsController.FunctionGetOffensiveWords();
+            const ow = await myOffensiveWordRepository.getOffensiveWords();
             const owDDBB = ow.length;
 
             if (ow.length === 0) {
 
-                myOffensiveWordsController.FunctionSaveOffensiveWord(OwList[0]);
-                myOffensiveWordsController.FunctionSaveOffensiveWord(OwList[1]);
-                myOffensiveWordsController.FunctionSaveOffensiveWord(OwList[2]);
-                myOffensiveWordsController.FunctionSaveOffensiveWord(OwList[3]);
+                myOffensiveWordRepository.saveOffensiveWord(OwList[0]);
+                myOffensiveWordRepository.saveOffensiveWord(OwList[1]);
+                myOffensiveWordRepository.saveOffensiveWord(OwList[2]);
+                myOffensiveWordRepository.saveOffensiveWord(OwList[3]);
                 
                 return "'Populate offensive words success'"
             };

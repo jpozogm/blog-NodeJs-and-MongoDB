@@ -1,5 +1,5 @@
-const UserController = require('../resourcer/controllers/user-contollers');
-const myUserController = new UserController();
+const UserRepository = require('../resourcer/repositories/user-repository');
+const myUserRepository = new UserRepository();
 const AdminList = require('../data/adminList.json')
 
 
@@ -10,15 +10,15 @@ module.exports = class checkAdminsOnLoad {
     async checkAdmins(){
 
         try {
-            const admins = await myUserController.FunctiongetUsers();
+            const admins = await myUserRepository.getUsers();
             const adminsDDBB = admins.length;
 
             if (admins.length === 0) {
 
-                myUserController.FunctionSaveUser(AdminList[0]);
-                myUserController.FunctionSaveUser(AdminList[1]);
-                myUserController.FunctionSaveUser(AdminList[2]);
-                myUserController.FunctionSaveUser(AdminList[3]);
+                myUserRepository.saveUser(AdminList[0]);
+                myUserRepository.saveUser(AdminList[1]);
+                myUserRepository.saveUser(AdminList[2]);
+                myUserRepository.saveUser(AdminList[3]);
                 
                 return "'Admin users success'"
             };

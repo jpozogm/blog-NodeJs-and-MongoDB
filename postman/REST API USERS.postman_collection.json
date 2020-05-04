@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "df2bc2f9-d14e-4ffa-bd7c-fb4027a3daf4",
-		"name": "REST API POSTS",
+		"_postman_id": "cdc3d42e-85ec-4f93-a0e6-696308cb3af8",
+		"name": "REST API USERS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "New Post POST",
+			"name": "New User POST",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -21,14 +21,14 @@
 					"raw": "{\n\t\"postAuthorName\": \"Rajoy\",\n\t\"postAuthorNickName\": \"M.Rajoy\",\n\t\"posttitle\": \"refactorizar Hello world\",\n\t\"postContent\": \"un plato es un plato\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/",
+					"raw": "http://localhost:3000/user/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
+						"user",
 						""
 					]
 				}
@@ -36,19 +36,19 @@
 			"response": []
 		},
 		{
-			"name": "Query Posts GET",
+			"name": "Query Users GET",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/posts/",
+					"raw": "http://localhost:3000/user/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
+						"user",
 						""
 					]
 				}
@@ -56,19 +56,19 @@
 			"response": []
 		},
 		{
-			"name": "Query Post GET by ID",
+			"name": "Query User GET by ID",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/posts/5e9ea710a31105c3317106e9",
+					"raw": "http://localhost:3000/user/5e9ea710a31105c3317106e9",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
+						"user",
 						"5e9ea710a31105c3317106e9"
 					]
 				}
@@ -76,33 +76,16 @@
 			"response": []
 		},
 		{
-			"name": "Delete Post DELETE",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/posts/5e9ea710a31105c3317106e9",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"posts",
-						"5e9ea710a31105c3317106e9"
-					]
-				}
+			"name": "Query User GET by NAME",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
 			},
-			"response": []
-		},
-		{
-			"name": "Query Post PUT",
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"postAuthorName\": \"Carl Sagan\",\n\t\"postAuthorNickName\": \"sagan\",\n\t\"posttitle\": \"Cosmos\",\n\t\"postContent\": \"Para hacer una tarta de manzana primero tienes que crear un universo.\"\n}",
+					"raw": "{\n\t\"user\": \"Rajoy\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,15 +93,64 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/5e9ea710a31105c3317106e9",
+					"raw": "http://localhost:3000/user/Rajoy",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts",
+						"user",
+						"Rajoy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/5e9ea710a31105c3317106e9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
 						"5e9ea710a31105c3317106e9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query User PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\": \"Sagan\",\n\t\"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/5ea06a0cb62b48efae8ebe9d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5ea06a0cb62b48efae8ebe9d"
 					]
 				}
 			},
