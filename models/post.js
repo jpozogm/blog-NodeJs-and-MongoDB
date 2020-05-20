@@ -6,15 +6,15 @@ const PostSchema = Schema({
 
     postAuthorName: {
         type: String,
-        required: true,
+        required: false,
     },
         
     postAuthorNickName: {
         type: String,
-        required: true,
+        required: false,
     },
 
-    posttitle: {
+    postTittle: {
         type: String, 
         default: "Hello World",
         required: true
@@ -34,6 +34,12 @@ const PostSchema = Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "users",
         required: true
+    },
+    
+    postDate: {
+        type: Date,
+        default: Date.now,
+        require: false
     },
 });
 

@@ -55,16 +55,8 @@ module.exports = class CommentRepository {
     
     async updateComment(id, coReq) {
         try {
-            const co = await CommentSchema.findById(id); 
+            const commentSave = await CommentSchema.findByIdAndUpdate(id, coReq, {new:true}); 
 
-            //update fields in model
-            co.commentAuthorNickName = coReq.commentAuthorNickName;
-            co.commentContent = coReq.commentContent;
-                    
-            //upgrate resource
-            let commentSave = await co.save() 
-
-            //return update resource
             return commentSave;
 
         } catch (err) {

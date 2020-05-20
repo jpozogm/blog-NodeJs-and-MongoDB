@@ -29,6 +29,7 @@ const connectToDb = async () => {
             const responseAdminsOnLoad =   await myheckAdminUserInit.checkAdmins();
           
             console.log(`Server started in port ${config.port}`,' || ',responseWordsOnLoad,' || ', responseAdminsOnLoad)
+            
     } catch (err) {
         console.log(err);
     }

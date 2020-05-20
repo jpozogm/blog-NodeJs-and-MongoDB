@@ -42,7 +42,7 @@ const api = express.Router();
 
 api.use(passport.initialize());
 
-api.post('/posts', passport.authenticate('jwt', {session:false}), isAdmin.isAdminOrLoggued, myPostCtrl.savePost); // *
+api.post('/posts', passport.authenticate('jwt', {session:false}), isAdmin.isAdminOrLoggued, myPostCtrl.savePost); 
 api.get('/posts', myPostCtrl.getPosts);
 api.get('/posts/:id', myPostCtrl.getPost);
 api.delete('/posts/:id', passport.authenticate('jwt', {session:false}),isAdmin.isLoggedOrAdminPost, myPostCtrl.deletePost);
@@ -67,12 +67,14 @@ api.get('/userbyName', myUserCtrl.getUserByName);
 api.delete('/user/:id', myUserCtrl.deleteUser);
 api.put('/user/:id', myUserCtrl.updateUser); 
 
-api.post("/login", passport.authenticate('basic', {session: false}), (req, res) =>{
+api.post("/login", passport.authenticate('basic', {session: false}), (req, res, next) =>{
 
-    const body = {role: req.user.role, _id : req.user_id, user : req.user.user}
+        
+    const body = {role: req.user.role, _id : req.user._id, user : req.user.user}
     const token = jwt.sign({body}, config);
 
-    return res.status(200).json({message: "Auth Passed", token});
+    res.status(200).json({message: "Auth Passed", token});
+    next();
 })
 
 module.exports = api;

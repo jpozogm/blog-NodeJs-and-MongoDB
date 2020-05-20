@@ -27,6 +27,7 @@ class isAdmin {
     async isAdminOrLoggued(req, res, next) {
         try {
             const userId = req.user.id; //id user loggued
+
             const getUserById = await MyUserController.MiddelwareUserById(userId);
             const userRole = getUserById.role;
 

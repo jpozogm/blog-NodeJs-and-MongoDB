@@ -8,7 +8,7 @@ module.exports = class PostRepository {
                 const newPost = new PostSchema ({
                     postAuthorName: post.postAuthorName,
                     postAuthorNickName: post.postAuthorNickName,
-                    posttitle: post.posttitle,
+                    postTittle: post.postTittle,
                     postContent: post.postContent,
                     user: post.user,
                 });
@@ -43,28 +43,20 @@ module.exports = class PostRepository {
         }
     };
 
-    async updatePost(id, poReq, getUserById, getPostById) {
+    async updatePost(id, poReq, userById, postById) {
 
-        const postId = getPostById.user;
-        const userId = getUserById.id;
-        const userRole = getUserById.role
+
+        const postId = postById.user; //postUserId
+        const userId = userById.id; // id usuario logado
+        const userRole = userById.role
 
         try {
 
             if(postId == userId || userRole === "admin") {
 
-                const po= await PostSchema.findById(id); 
+                const modifyPost = await PostSchema.findByIdAndUpdate(id, poReq, {new:true}) 
 
-                    po.postAuthorName = poReq.postAuthorName;
-                    po.postAuthorNickName = poReq.postAuthorNickName;
-                    po.posttitle = poReq.posttitle;
-                    po.postContent = poReq.postContent;
-                
-                //upgrate resource
-                let postSave = await po.save() 
-
-                //return update resource
-                return postSave;
+                return modifyPost;
             } else {
                 return "El usuario logado no tiene estos derechos";
             }

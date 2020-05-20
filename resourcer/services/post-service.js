@@ -34,10 +34,12 @@ module.exports = class PostService {
     };
 
     async updatePost(id, poReq, userId) {
+
         try{
-            const getUserById = await MyUserRepository.getUserById(userId);
-            const getPostById = await MyPostRepository.getPost(id);
-            const updatePost = await MyPostRepository.updatePost(id, poReq, getUserById, getPostById);
+            const userById = await MyUserRepository.getUserById(userId);
+            const postById = await MyPostRepository.getPost(id);
+            const updatePost = await MyPostRepository.updatePost(id, poReq, userById, postById);
+
             return updatePost;
         } catch(err) {
             console.log(err);

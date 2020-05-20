@@ -1,6 +1,9 @@
 
 const CommentSchema = require('../../models/comment');
 
+const MyUserRepository = require("../repositories/user-repository");
+const myUserRepository = new MyUserRepository()
+
 const CommentService = require('../services/comment-service')
 const MyCommentService = new CommentService();
 
@@ -13,6 +16,9 @@ module.exports = class CommentController {
             const id= req.params.id;
             const comment = req.body
             comment.user = req.user._id;
+
+            const getUserById = await myUserRepository.getUserById(req.user._id);
+            comment.commentAuthorNickName = getUserById.user;
 
             const newComment = await MyCommentService.saveComment(id, comment);
             res.status(200).json(newComment); 

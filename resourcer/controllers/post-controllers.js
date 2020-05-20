@@ -1,5 +1,7 @@
 const PostSchema = require('../../models/post');
 const jwt = require("jsonwebtoken");
+const MyUserRepository = require("../repositories/user-repository");
+const myUserRepository = new MyUserRepository()
 
 const PostService = require('../services/post-service')
 const MyPostService = new PostService();
@@ -7,9 +9,14 @@ const MyPostService = new PostService();
 module.exports = class PostController {
 
     async savePost(req, res, next) {
+
         try {
             const post = req.body;
             post.user = req.user._id; //incluyo el user:user id al crear el post
+
+            const getUserById = await myUserRepository.getUserById(req.user._id);
+            post.postAuthorName = getUserById.user;
+            post.postAuthorNickName = getUserById.user;
 
             const newPost = await MyPostService.savePost(post);
             res.status(200).json(newPost); 
@@ -48,10 +55,15 @@ module.exports = class PostController {
     };
 
     async updatePost(req, res, next) { 
+
         try{
             const userId = req.user._id; //id user loggued
             const id = req.params.id;
             const poReq = req.body;
+
+            console.log("userId", req.user._id)
+            console.log("id", req.params.id)
+            console.log("poReq", poReq)
 
             const updatePost = await MyPostService.updatePost(id, poReq, userId);
 

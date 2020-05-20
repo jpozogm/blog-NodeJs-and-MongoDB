@@ -9,7 +9,8 @@ class BasicAuth {
     constructor(){}
 
     async verify(username, password, done) {
- 
+
+
         const user = await myUserController.CheckUserByName(username);
 
         if (!user) {
