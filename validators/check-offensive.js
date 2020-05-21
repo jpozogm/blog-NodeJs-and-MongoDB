@@ -3,6 +3,7 @@ class OffensiveWordsIncludes {
 
     async checkWordsOnComments (comment, offensiveWordsList) {
 
+        console.log('******', comment)
         try {
             let notAllowedOffensiveWords = [];
             let offensiveWordsDBlist = [];

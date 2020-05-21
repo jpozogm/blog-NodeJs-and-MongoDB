@@ -1,5 +1,7 @@
 const UserController = require ('../resourcer/controllers/user-controllers')
 const MyUserController = new UserController();
+const UserRepository = require ('../resourcer/repositories/user-repository')
+const MyUserRepository = new UserRepository();
 const PostController = require ('../resourcer/controllers/post-controllers')
 const MyPostController = new PostController();
 const CommentController = require('../resourcer/controllers/comment-controllers')
@@ -13,7 +15,7 @@ class isAdmin {
         try {
 
             const userId = req.user.id; //id user loggued
-            const getUserById = await MyUserController.MiddelwareUserById(userId);
+            const getUserById = await MyUserRepository.getUserById(userId);
             const userRole = getUserById.role;
 
             return (userRole === "admin") ? next() : res.status(403).json({message: "el usuario no tiene derechos"});;
@@ -28,8 +30,10 @@ class isAdmin {
         try {
             const userId = req.user.id; //id user loggued
 
-            const getUserById = await MyUserController.MiddelwareUserById(userId);
+            const getUserById = await MyUserRepository.getUserById(userId);
             const userRole = getUserById.role;
+
+
 
             return ( userId || userRole === "admin") ? next() : res.status(403).json({message: "el usuario no tiene derechos"});;
 

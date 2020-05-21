@@ -35,6 +35,7 @@ module.exports = class UserRepository {
     }
 
     async getUserById(id) {
+        console.log('** id ****', id)
         try {
             return await UserSchema.findById(id); 
         } catch (err){
@@ -65,7 +66,7 @@ module.exports = class UserRepository {
 
     async updateUser(id, usReq) {
         try {
-            const us= await UserSchema.findById(id); 
+            const us= await UserSchema.findById(_id); 
 
                 us.user = usReq.user;
                 us.password = usReq.password;

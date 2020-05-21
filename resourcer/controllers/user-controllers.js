@@ -43,10 +43,18 @@ module.exports = class UserController {
     };
 
     async getUserByName(req, res, next) {
+
+        console.log("req.params.name", req.params.name)
+
         try {
-            const username= req.body.user;
-            const getUserByName = await MyUserService.getUserByName(username);
-            res.status(200).json(getUserByName);
+            const name= req.params.name;
+            const getUserByName = await MyUserService.getUserByName(name);
+
+            if(getUserByName !== null) {
+                res.status(200).json(getUserByName);
+            } else {
+                res.status(404).json({message : 'usuario no encontrado'})
+            }
         } catch(err) {
             console.log(err);
             res.status(500).send(err)

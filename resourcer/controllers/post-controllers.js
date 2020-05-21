@@ -9,7 +9,7 @@ const MyPostService = new PostService();
 module.exports = class PostController {
 
     async savePost(req, res, next) {
-
+        
         try {
             const post = req.body;
             post.user = req.user._id; //incluyo el user:user id al crear el post

@@ -42,17 +42,17 @@ const api = express.Router();
 
 api.use(passport.initialize());
 
-api.post('/posts', passport.authenticate('jwt', {session:false}), isAdmin.isAdminOrLoggued, myPostCtrl.savePost); 
+api.post('/posts', passport.authenticate('jwt', {session:false}), isAdmin.isAdminOrLoggued, myOffensiveValidator.OffensiveWordsValidator, myPostCtrl.savePost); 
 api.get('/posts', myPostCtrl.getPosts);
 api.get('/posts/:id', myPostCtrl.getPost);
 api.delete('/posts/:id', passport.authenticate('jwt', {session:false}),isAdmin.isLoggedOrAdminPost, myPostCtrl.deletePost);
-api.put('/posts/:id', passport.authenticate('jwt', {session:false}), isAdmin.isLoggedOrAdminPost, myPostCtrl.updatePost); 
+api.put('/posts/:id', passport.authenticate('jwt', {session:false}), isAdmin.isLoggedOrAdminPost, myOffensiveValidator.OffensiveWordsValidator, myPostCtrl.updatePost); 
 
-api.post('/comments/:id',passport.authenticate('jwt', {session:false}), isAdmin.isLoggedOrAdminPost, myOffensiveValidator.OffensiveWordsValidator, myCommentCtrl.saveComment);
+api.post('/comments/:id',passport.authenticate('jwt', {session:false}), isAdmin.isAdminOrLoggued, myOffensiveValidator.OffensiveWordsValidator, myCommentCtrl.saveComment);
 api.get('/comments', myCommentCtrl.getComments);
 api.get('/comments/:id', myCommentCtrl.getComment);
 api.delete('/comments/:id', passport.authenticate('jwt', {session:false}), isAdmin.isLoggedOrAdminComment, myCommentCtrl.deleteComment);
-api.put('/comments/:id', passport.authenticate('jwt', {session:false}), isAdmin.isLoggedOrAdminComment, myCommentCtrl.updateComment); 
+api.put('/comments/:id', passport.authenticate('jwt', {session:false}), isAdmin.isLoggedOrAdminComment, myOffensiveValidator.OffensiveWordsValidator, myCommentCtrl.updateComment); 
 
 api.post('/offensivewords', passport.authenticate('jwt', {session:false}), isAdmin.isAdmin, myOffensiveWordCtrl.saveOffensiveWord);
 api.get('/offensivewords', myOffensiveWordCtrl.getOffensiveWords);
@@ -63,7 +63,7 @@ api.put('/offensivewords/:id', passport.authenticate('jwt', {session:false}), is
 api.post('/user', myUserCtrl.saveUser);
 api.get('/user', myUserCtrl.getUsers);
 api.get('/user/:id', myUserCtrl.getUserById);
-api.get('/userbyName', myUserCtrl.getUserByName);
+api.get('/user/byName/:name', myUserCtrl.getUserByName);
 api.delete('/user/:id', myUserCtrl.deleteUser);
 api.put('/user/:id', myUserCtrl.updateUser); 
 
