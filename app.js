@@ -13,6 +13,7 @@ app.use(cors());
 app.use(morgan(':method  :status :url'));
 app.use(express.json());
 app.use("/", api);
+app.use(express.static('public'));
 
 //
 (async function main(){

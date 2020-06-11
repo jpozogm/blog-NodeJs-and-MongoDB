@@ -4,31 +4,51 @@ const PostSchema = require ('../../models/post');
 module.exports = class CommentRepository {
 
     async saveComment(id, comment) {
-        try {
-                const postasign = await PostSchema.findById(id)
 
-                //create object
-                const newComment = new CommentSchema ({
-                    commentAuthorNickName: comment.commentAuthorNickName,
-                    commentContent: comment.commentContent,
-                    commentsPostId: postasign._id,
-                    userId : comment.user,
-                });
+        console.log("id", id) //id post
+        console.log("comment", comment)
 
-                //save resource
-                await newComment.save(); 
+         try {
+            const getPost = await PostSchema.findById(id)
+            console.log("getPost", getPost)
 
-                //asignar el comentario al post y guardarlo
-                await postasign.postComments.push(newComment)
-                await postasign.save();
+            //create object
+            const newComment = new CommentSchema ({
+                commentAuthorNickName: comment.commentAuthorNickName,
+                commentContent: comment.commentContent,
+                commentsPostId: getPost._id,
+                userId : comment.user,
+            });
 
-                //Return new resource
-                return newComment; 
+            console.log("newComment", newComment)
+            //save resource
+            await newComment.save(); 
+
+            //asignar el comentario al post y guardarlo
+            await getPost.postComments.push(newComment)
+            await getPost.save();
+
+            //Return new resource
+            return newComment; 
+
 
         } catch (err) {
             console.log(err.message)
             return err.message
-        }
+        } 
+
+  /*       try {
+            const newComment = new CommentSchema(comment);
+            await newComment.save();
+            await PostSchema.findByIdAndUpdate(id, {
+              $push: { postComments: newComment },
+            });
+            return newComment;
+
+        } catch (err) {
+            console.log(err.message)
+            return err.message
+        } */
     };
 
     async getComments() {

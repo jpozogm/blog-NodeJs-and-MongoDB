@@ -8,7 +8,6 @@ module.exports = class OffensiveValidator {
     constructor(){}
 
     async OffensiveWordsValidator (req, res, next ){
-        console.log('**** req.body ****', req.body)
 
         const comment = req.body;
         const offensiveWordsDB = await myoffensiveWordRepository.getOffensiveWords();

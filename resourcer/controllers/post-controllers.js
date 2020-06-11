@@ -61,10 +61,6 @@ module.exports = class PostController {
             const id = req.params.id;
             const poReq = req.body;
 
-            console.log("userId", req.user._id)
-            console.log("id", req.params.id)
-            console.log("poReq", poReq)
-
             const updatePost = await MyPostService.updatePost(id, poReq, userId);
 
             if(updatePost !== null) {

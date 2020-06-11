@@ -35,7 +35,6 @@ module.exports = class UserRepository {
     }
 
     async getUserById(id) {
-        console.log('** id ****', id)
         try {
             return await UserSchema.findById(id); 
         } catch (err){
