@@ -9,7 +9,7 @@ const MyPostService = new PostService();
 module.exports = class PostController {
 
     async savePost(req, res, next) {
-        
+        console.log('++2+', req.user)
         try {
             const post = req.body;
             post.user = req.user._id; //incluyo el user:user id al crear el post
@@ -17,7 +17,6 @@ module.exports = class PostController {
             const getUserById = await myUserRepository.getUserById(req.user._id);
             post.postAuthorName = getUserById.user;
             post.postAuthorNickName = getUserById.user;
-
             const newPost = await MyPostService.savePost(post);
             res.status(200).json(newPost); 
         } catch(err) {
